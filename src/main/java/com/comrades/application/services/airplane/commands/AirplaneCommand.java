@@ -9,13 +9,9 @@ import com.comrades.core.airplane.usecases.UcAirplaneEdit;
 import com.comrades.core.bases.UseCaseFacade;
 import com.comrades.domain.models.Airplane;
 import com.comrades.persistence.repositories.IAirplaneRepository;
-import io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 
 
