@@ -29,10 +29,8 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 @Profile("!tests")
 @Configuration
@@ -56,15 +54,12 @@ public class SpringBeansConfig {
 
     @Bean(destroyMethod="")
     public DataSource dataSource() throws NamingException {
-        Properties props = new Properties();
 
-        props.setProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource");
-        props.setProperty("dataSource.user", "postgres");
-        props.setProperty("dataSource.password", "qwe123");
-        props.setProperty("dataSource.databaseName", "comrades");
-        props.put("dataSource.logWriter", new PrintWriter(System.out));
-
-        HikariConfig config = new HikariConfig(props);
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName("org.postgresql.Driver");
+        config.setJdbcUrl("jdbc:postgresql://localhost:5432/comrades?schema=public");
+        config.setUsername("postgres");
+        config.setPassword("qwe123");
         HikariDataSource ds = new HikariDataSource(config);
 
         return ds;
