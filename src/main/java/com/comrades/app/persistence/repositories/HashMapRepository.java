@@ -45,7 +45,7 @@ public abstract class HashMapRepository<T, ID> implements CrudRepository<T, ID> 
 	@Override
 	public <S extends T> S save(S entity) {
 		Assert.notNull(entity, "entity cannot be null");
-		Assert.notNull(getEntityId(entity), "entity ID cannot be null");
+		// Assert.notNull(getEntityId(entity), "entity ID cannot be null");
 		entities.put(getEntityId(entity), entity);
 		return entity;
 	}
