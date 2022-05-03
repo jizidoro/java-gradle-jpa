@@ -29,10 +29,13 @@ public class SpringUseCaseManager implements UseCaseManager, BeanFactoryAware {
 
     private AutowireCapableBeanFactory beanFactory;
 
+    private final UseCaseLogContext contextoOperacao;
+
     private final UseCaseLogger useCaseLogger;
 
     @Autowired
     public SpringUseCaseManager(UseCaseLogContext contextoOperacao, UseCaseLogger useCaseLogger) {
+        this.contextoOperacao = contextoOperacao;
         this.useCaseLogger = useCaseLogger;
     }
 
@@ -52,6 +55,14 @@ public class SpringUseCaseManager implements UseCaseManager, BeanFactoryAware {
     @Override
     public void prepare(UseCase usecase) {
         beanFactory.autowireBean(usecase);
+        if (shouldLogOnPersistence(usecase)) {
+            LoggedUseCase details = usecase.getClass().getAnnotation(LoggedUseCase.class);
+            contextoOperacao.setOperacao(details.operacao());
+            contextoOperacao.setFuncionalidadeLogEnum(details.funcionalidade());
+        } else {
+            contextoOperacao.setOperacao(null);
+            contextoOperacao.setFuncionalidadeLogEnum(null);
+        }
     }
 
     @Override
@@ -76,3 +87,5 @@ public class SpringUseCaseManager implements UseCaseManager, BeanFactoryAware {
         }
     }
 }
+
+

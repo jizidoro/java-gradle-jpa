@@ -4,8 +4,9 @@ spring:
   liquibase:
     changeLog: "classpath:db/migration/change-log.json"
 
-  r2dbc:
-    url: r2dbc:postgresql://localhost:5432/comrades?schema=public
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/comrades?schema=public
     username: postgres
     password: qwe123
 

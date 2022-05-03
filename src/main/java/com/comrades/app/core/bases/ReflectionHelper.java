@@ -107,7 +107,7 @@ public class ReflectionHelper {
 	}
 
 	public static <T extends Annotation> T getAnnotation(Class clazz, PropertyDescriptor descriptor,
-			Class<T> annotation) {
+														 Class<T> annotation) {
 		if (descriptor.getReadMethod().isAnnotationPresent(annotation)) {
 			return descriptor.getReadMethod().getAnnotation(annotation);
 		}
@@ -119,7 +119,7 @@ public class ReflectionHelper {
 	}
 
 	public static PropertyDescriptor tryGetField(List<PropertyDescriptor> fields, String[] nome,
-			String[] nomeSecundario) {
+												 String[] nomeSecundario) {
 		List<String> primary = nome == null ? null : Arrays.asList(nome);
 		List<String> secondary = nomeSecundario == null ? null : Arrays.asList(nomeSecundario);
 		PropertyDescriptor f = null;
