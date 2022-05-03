@@ -22,7 +22,7 @@ import com.comrades.app.domain.models.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserRepository extends HashMapRepository<User, String>  implements IUserRepository{
+public class UserRepository extends HashMapRepository<User, String> {
 
 	public UserRepository() {
 		super(User.class);

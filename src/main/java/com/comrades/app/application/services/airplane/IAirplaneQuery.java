@@ -11,5 +11,5 @@ import java.util.List;
 public interface IAirplaneQuery {
     List<AirplaneDto> findAll() throws URISyntaxException, IOException, InterruptedException;
 
-    AirplaneDto findById(int id);
+    AirplaneDto findById(Long id);
 }

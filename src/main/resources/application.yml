@@ -12,12 +12,12 @@ spring:
 server:
   port: 8090
 
-management:
-  endpoints:
-    web:
-      base-path: /rest/actuator
-      exposure:
-        include: '*'
+#management:
+#  endpoints:
+#    web:
+#      base-path: /rest/actuator
+#      exposure:
+#        include: '*'
 
 
 springdoc:
@@ -34,4 +34,4 @@ springdoc:
   show-actuator: true
   group-configs:
     - group: stores
-      paths-to-match: /store/**
+      paths-to-match: /**

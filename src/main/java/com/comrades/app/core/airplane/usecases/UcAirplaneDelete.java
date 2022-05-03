@@ -2,7 +2,7 @@ package com.comrades.app.core.airplane.usecases;
 
 import com.comrades.app.core.bases.UseCase;
 import com.comrades.app.domain.models.Airplane;
-import com.comrades.app.persistence.repositories.IAirplaneRepository;
+import com.comrades.app.persistence.repositories.AirplaneRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UcAirplaneDelete extends UseCase<Airplane> {
 
     @Autowired
-    private IAirplaneRepository _airplaneRepository;
+    private AirplaneRepository _airplaneRepository;
 
-    private int id;
+    private Long id;
 
-    public UcAirplaneDelete(int airplaneId) {
+    public UcAirplaneDelete(Long airplaneId) {
         super();
         id = airplaneId;
     }
@@ -26,8 +26,8 @@ public class UcAirplaneDelete extends UseCase<Airplane> {
     protected Airplane execute() throws Exception {
         var result = _airplaneRepository.findById(id);
 
-        _airplaneRepository.delete(result);
+        _airplaneRepository.delete(result.get());
 
-        return result;
+        return result.get();
     }
 }

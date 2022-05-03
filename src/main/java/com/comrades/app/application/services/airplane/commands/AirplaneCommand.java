@@ -8,7 +8,6 @@ import com.comrades.app.core.airplane.usecases.UcAirplaneDelete;
 import com.comrades.app.core.airplane.usecases.UcAirplaneEdit;
 import com.comrades.app.core.bases.UseCaseFacade;
 import com.comrades.app.domain.models.Airplane;
-import com.comrades.app.persistence.repositories.IAirplaneRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AirplaneCommand implements IAirplaneCommand {
 
-    private final IAirplaneRepository _airplaneRepository;
     private final UseCaseFacade facade;
 
     public Airplane save(AirplaneDto airplane) {
@@ -33,7 +31,7 @@ public class AirplaneCommand implements IAirplaneCommand {
         return true;
     }
 
-    public Boolean delete(int id) {
+    public Boolean delete(Long id) {
         var uc = new UcAirplaneDelete(id);
         facade.execute(uc);
         return true;

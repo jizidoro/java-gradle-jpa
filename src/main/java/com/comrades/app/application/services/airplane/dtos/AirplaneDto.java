@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class AirplaneDto {
 
-    private Integer id;
+    private Long id;
 
     @NotNull
     @NotEmpty

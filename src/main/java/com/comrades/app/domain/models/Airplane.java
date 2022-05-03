@@ -18,7 +18,7 @@ public class Airplane {
     @Id
     @With
     @Column("airp_sq_airplane")
-    private Integer id;
+    private Long id;
 
     @NotNull
     @NotEmpty(message = "The name of this Airplane cannot be empty")
