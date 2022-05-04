@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -25,7 +26,7 @@ public class AirplaneDto {
     @NotNull
     private Integer quantidadePassageiro;
 
-    private String dataRegistro;
+    private LocalDate dataRegistro;
 
     private FuelTypeEnum fuelType;
 

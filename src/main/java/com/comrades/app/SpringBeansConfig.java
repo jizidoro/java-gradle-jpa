@@ -8,7 +8,6 @@ package com.comrades.app;
 
 
 import com.comrades.app.core.bases.MessageBundle;
-import com.comrades.app.persistence.repositories.HashMapRepository;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.MessageSource;
@@ -36,8 +35,7 @@ import java.util.Map;
 @Profile("!tests")
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.comrades.app.domain.models",
-        repositoryBaseClass = HashMapRepository.class)
+@EnableJpaRepositories("com.comrades.app.persistence.repositories")
 @ComponentScan(basePackages = "com.comrades.app")
 public class SpringBeansConfig {
 
@@ -53,7 +51,7 @@ public class SpringBeansConfig {
         return pspc;
     }
 
-    @Bean(destroyMethod="")
+    @Bean(destroyMethod = "close")
     public DataSource dataSource() throws NamingException {
 
         HikariConfig config = new HikariConfig();
@@ -93,7 +91,10 @@ public class SpringBeansConfig {
         Map<String, Object> jpaProperties = new HashMap<>();
         // jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
         jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        jpaProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+        jpaProperties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
         jpaProperties.put("hibernate.show_sql", true);
+        jpaProperties.put("hibernate.format_sql", true);
         factory.setJpaPropertyMap(jpaProperties);
 
         factory.afterPropertiesSet();

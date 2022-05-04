@@ -27,14 +27,20 @@ public class AirplaneRepository implements IAirplaneRepository {
 
     @Override
     public int save(Airplane airplane) {
-        var sql = """
-                INSERT INTO airplane(airp_tx_codigo, airp_tx_modelo, airp_qt_passageiro, airp_dt_registro)
-                VALUES (?, ?, ?, ?);
-                 """;
-        return jdbcTemplate.update(
-                sql,
-                airplane.getCodigo(), airplane.getModelo()
-        );
+        try {
+            var sql = """
+                    INSERT INTO airp_airplane(airp_tx_codigo, airp_tx_modelo, airp_qt_passageiro, airp_dt_registro)
+                    VALUES (?, ?, ?, ?);
+                     """;
+            return jdbcTemplate.update(
+                    sql,
+                    airplane.getCodigo(), airplane.getModelo(), airplane.getQuantidadePassageiro(), airplane.getDataRegistro()
+            );
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            return 0;
+        }
+
     }
 
     @Override

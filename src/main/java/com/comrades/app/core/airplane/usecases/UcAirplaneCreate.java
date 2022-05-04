@@ -24,7 +24,6 @@ public class UcAirplaneCreate extends UseCase<Integer> {
     
     @Override
     protected Integer execute() throws Exception {
-        var teste = _airplaneRepository.save(airplane);
-        return teste;
+        return _airplaneRepository.save(airplane);
     }
 }
