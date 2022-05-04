@@ -1,5 +1,6 @@
-package com.comrades.app.api.controller.movie;
+package com.comrades.app.persistence.repositories;
 
+import com.comrades.app.domain.models.Movie;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -7,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class MovieDataAccessService implements MovieDao {
+public class MovieRepository implements IMovieRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public MovieDataAccessService(JdbcTemplate jdbcTemplate) {
+    public MovieRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -35,6 +36,6 @@ public class Airplane extends BaseEntity {
     private Integer quantidadePassageiro;
 
     @Column("airp_dt_registro")
-    private String dataRegistro;
+    private LocalDate dataRegistro;
 
 }

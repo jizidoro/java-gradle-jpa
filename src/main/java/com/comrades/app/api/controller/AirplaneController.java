@@ -4,7 +4,6 @@ package com.comrades.app.api.controller;
 import com.comrades.app.application.services.airplane.IAirplaneCommand;
 import com.comrades.app.application.services.airplane.IAirplaneQuery;
 import com.comrades.app.application.services.airplane.dtos.AirplaneDto;
-import com.comrades.app.domain.models.Airplane;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
@@ -55,33 +54,33 @@ public class AirplaneController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(tags = {"Airplane"})
-    public Airplane save(@RequestBody AirplaneDto airplane) {
+    public Integer save(@RequestBody AirplaneDto airplane) {
         try {
             return _airplaneCommand.save(airplane);
         } catch (Exception ex) {
-            return new Airplane();
+            return 0;
         }
     }
 
     @PutMapping(path = "{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(tags = {"Airplane"})
-    public Boolean update(@PathVariable int id, @RequestBody AirplaneDto airplane) {
+    public Integer update(@PathVariable int id, @RequestBody AirplaneDto airplane) {
         try {
             return _airplaneCommand.update(airplane);
         } catch (Exception ex) {
-            return false;
+            return 0;
         }
     }
 
     @DeleteMapping(path = "{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(tags = {"Airplane"})
-    public Boolean delete(@PathVariable Long id) {
+    public Integer delete(@PathVariable Long id) {
         try {
             return _airplaneCommand.delete(id);
         } catch (Exception ex) {
-            return false;
+            return 0;
         }
     }
 

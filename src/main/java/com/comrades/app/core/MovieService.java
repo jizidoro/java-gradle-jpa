@@ -1,5 +1,7 @@
-package com.comrades.app.api.controller.movie;
+package com.comrades.app.core;
 
+import com.comrades.app.persistence.repositories.IMovieRepository;
+import com.comrades.app.domain.models.Movie;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -9,9 +11,9 @@ import java.util.Optional;
 @Service
 public class MovieService {
 
-    private final MovieDao movieDao;
+    private final IMovieRepository movieDao;
 
-    public MovieService(MovieDao movieDao) {
+    public MovieService(IMovieRepository movieDao) {
         this.movieDao = movieDao;
     }
 

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
 @Setter
-public class UcAirplaneCreate extends UseCase<Airplane> {
+public class UcAirplaneCreate extends UseCase<Integer> {
 
     @Autowired
     private AirplaneRepository _airplaneRepository;
@@ -23,7 +23,7 @@ public class UcAirplaneCreate extends UseCase<Airplane> {
     }
     
     @Override
-    protected Airplane execute() throws Exception {
+    protected Integer execute() throws Exception {
         var teste = _airplaneRepository.save(airplane);
         return teste;
     }

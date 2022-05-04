@@ -18,22 +18,20 @@ public class AirplaneCommand implements IAirplaneCommand {
 
     private final UseCaseFacade facade;
 
-    public Airplane save(AirplaneDto airplane) {
+    public Integer save(AirplaneDto airplane) {
         var result = AirplaneMapper.INSTANCE.toAirplane(airplane);
         var uc = new UcAirplaneCreate(result);
         return facade.execute(uc);
     }
 
-    public Boolean update(AirplaneDto airplane) {
+    public Integer update(AirplaneDto airplane) {
         var result = AirplaneMapper.INSTANCE.toAirplane(airplane);
         var uc = new UcAirplaneEdit(result);
-        facade.execute(uc);
-        return true;
+        return facade.execute(uc);
     }
 
-    public Boolean delete(Long id) {
+    public Integer delete(Long id) {
         var uc = new UcAirplaneDelete(id);
-        facade.execute(uc);
-        return true;
+        return facade.execute(uc);
     }
 }

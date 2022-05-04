@@ -1,5 +1,6 @@
-package com.comrades.app.api.controller.movie;
+package com.comrades.app.persistence.repositories;
 
+import com.comrades.app.domain.models.Movie;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

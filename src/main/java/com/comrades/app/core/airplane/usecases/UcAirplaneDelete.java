@@ -1,7 +1,6 @@
 package com.comrades.app.core.airplane.usecases;
 
 import com.comrades.app.core.bases.UseCase;
-import com.comrades.app.domain.models.Airplane;
 import com.comrades.app.persistence.repositories.AirplaneRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
 @Setter
-public class UcAirplaneDelete extends UseCase<Airplane> {
+public class UcAirplaneDelete extends UseCase<Integer> {
 
     @Autowired
     private AirplaneRepository _airplaneRepository;
@@ -23,11 +22,9 @@ public class UcAirplaneDelete extends UseCase<Airplane> {
     }
 
     @Override
-    protected Airplane execute() throws Exception {
+    protected Integer execute() throws Exception {
         var result = _airplaneRepository.findById(id);
 
-        _airplaneRepository.delete(result.get());
-
-        return result.get();
+        return _airplaneRepository.delete(result.get().getId());
     }
 }

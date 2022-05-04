@@ -1,5 +1,7 @@
-package com.comrades.app.api.controller.movie;
+package com.comrades.app.api.controller;
 
+import com.comrades.app.core.MovieService;
+import com.comrades.app.domain.models.Movie;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

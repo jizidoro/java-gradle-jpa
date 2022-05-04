@@ -1,4 +1,4 @@
-package com.comrades.app.api.controller.movie;
+package com.comrades.app.domain.models;
 
 import java.time.LocalDate;
 
