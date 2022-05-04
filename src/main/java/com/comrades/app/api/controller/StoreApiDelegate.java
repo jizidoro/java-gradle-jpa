@@ -16,103 +16,74 @@
  *
  */
 
-package com.comrades.app.api;
+package com.comrades.app.api.controller;
 
-import com.comrades.app.domain.models.User;
+import com.comrades.app.domain.models.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
- * A delegate to be called by the {@link UserApiController}}.
+ * A delegate to be called by the {@link StoreApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
 @javax.annotation.Generated(value = "org.springdoc.demo.app2.codegen.languages.SpringCodegen", date = "2019-07-11T00:09:29.839+02:00[Europe/Paris]")
 
-public interface UserApiDelegate {
+public interface StoreApiDelegate {
 
 	default Optional<NativeWebRequest> getRequest() {
 		return Optional.empty();
 	}
 
 	/**
-	 * @see UserApi#createUser
+	 * @see StoreApi#deleteOrder
 	 */
-	default ResponseEntity<Void> createUser(User user) {
+	default ResponseEntity<Void> deleteOrder(Long orderId) {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
 
 	/**
-	 * @see UserApi#createUsersWithArrayInput
+	 * @see StoreApi#getInventory
 	 */
-	default ResponseEntity<Void> createUsersWithArrayInput(List<User> user) {
+	default ResponseEntity<Map<String, Integer>> getInventory() {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
 
 	/**
-	 * @see UserApi#createUsersWithListInput
+	 * @see StoreApi#getOrderById
 	 */
-	default ResponseEntity<Void> createUsersWithListInput(List<User> user) {
+	default ResponseEntity<Order> getOrderById(Long orderId) {
+		extract();
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
 
-	/**
-	 * @see UserApi#deleteUser
-	 */
-	default ResponseEntity<Void> deleteUser(String username) {
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-	}
-
-	/**
-	 * @see UserApi#getUserByName
-	 */
-	default ResponseEntity<User> getUserByName(String username) {
+	default void extract() {
 		getRequest().ifPresent(request -> {
 			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
 				if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-					ApiUtil.setExampleResponse(request, "application/json", "{  \"firstName\" : \"firstName\",  \"lastName\" : \"lastName\",  \"password\" : \"password\",  \"userStatus\" : 6,  \"phone\" : \"phone\",  \"id\" : 0,  \"email\" : \"email\",  \"username\" : \"username\"}");
+					ApiUtil.setExampleResponse(request, "application/json", "{  \"petId\" : 6,  \"quantity\" : 1,  \"id\" : 0,  \"shipDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"complete\" : false,  \"status\" : \"placed\"}");
 					break;
 				}
 				if (mediaType.isCompatibleWith(MediaType.valueOf("application/xml"))) {
-					ApiUtil.setExampleResponse(request, "application/xml", "<User>  <id>123456789</id>  <username>aeiou</username>  <firstName>aeiou</firstName>  <lastName>aeiou</lastName>  <email>aeiou</email>  <password>aeiou</password>  <phone>aeiou</phone>  <userStatus>123</userStatus></User>");
+					ApiUtil.setExampleResponse(request, "application/xml", "<Order>  <id>123456789</id>  <petId>123456789</petId>  <quantity>123</quantity>  <shipDate>2000-01-23T04:56:07.000Z</shipDate>  <status>aeiou</status>  <complete>true</complete></Order>");
 					break;
 				}
 			}
 		});
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
 	}
 
 	/**
-	 * @see UserApi#loginUser
+	 * @see StoreApi#placeOrder
 	 */
-	default ResponseEntity<String> loginUser(String username,
-			String password) {
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-	}
-
-	/**
-	 * @see UserApi#logoutUser
-	 */
-	default ResponseEntity<Void> logoutUser() {
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
-	}
-
-	/**
-	 * @see UserApi#updateUser
-	 */
-	default ResponseEntity<Void> updateUser(String username,
-			User user) {
+	default ResponseEntity<Order> placeOrder(Order order) {
+		extract();
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}

@@ -21,7 +21,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package com.comrades.app.api;
+package com.comrades.app.api.controller;
 
 import com.comrades.app.domain.models.User;
 import io.swagger.v3.oas.annotations.Operation;

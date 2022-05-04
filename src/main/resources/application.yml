@@ -3,10 +3,12 @@ spring:
     name: comrades
   liquibase:
     changeLog: "classpath:db/migration/change-log.json"
+  flyway:
+    baseline-on-migrate: true
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/comrades?schema=public
+    jdbcUrl: jdbc:postgresql://localhost:5432/comrades?schema=public
     username: postgres
     password: qwe123
 

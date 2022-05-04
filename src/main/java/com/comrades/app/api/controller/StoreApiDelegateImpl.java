@@ -16,7 +16,7 @@
  *
  */
 
-package com.comrades.app.api;
+package com.comrades.app.api.controller;
 
 import com.comrades.app.domain.models.Order;
 import com.comrades.app.persistence.repositories.OrderRepository;

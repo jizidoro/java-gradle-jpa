@@ -30,10 +30,10 @@ dependencies {
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 	implementation 'com.zaxxer:HikariCP:5.0.1'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.2'
+	implementation 'org.postgresql:postgresql:42.3.4'
+	implementation 'org.flywaydb:flyway-core:8.5.10'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
@@ -53,3 +53,5 @@ openApi {
 test {
 	useJUnitPlatform()
 }
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16

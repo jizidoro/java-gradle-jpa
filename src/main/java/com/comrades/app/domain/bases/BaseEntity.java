@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class BaseEntity {
-    public @Id UUID id;
+    public @Id Long id;
     public UUID key;
     public String value;
 

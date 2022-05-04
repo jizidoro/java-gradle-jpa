@@ -1,4 +1,4 @@
-package com.comrades.app.api.usecases.v1;
+package com.comrades.app.api.controller;
 
 
 import com.comrades.app.application.services.airplane.IAirplaneCommand;

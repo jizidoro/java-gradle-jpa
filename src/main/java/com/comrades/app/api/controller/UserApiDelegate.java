@@ -16,74 +16,103 @@
  *
  */
 
-package com.comrades.app.api;
+package com.comrades.app.api.controller;
 
-import com.comrades.app.domain.models.Order;
+import com.comrades.app.domain.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 /**
- * A delegate to be called by the {@link StoreApiController}}.
+ * A delegate to be called by the {@link UserApiController}}.
  * Implement this interface with a {@link org.springframework.stereotype.Service} annotated class.
  */
 @javax.annotation.Generated(value = "org.springdoc.demo.app2.codegen.languages.SpringCodegen", date = "2019-07-11T00:09:29.839+02:00[Europe/Paris]")
 
-public interface StoreApiDelegate {
+public interface UserApiDelegate {
 
 	default Optional<NativeWebRequest> getRequest() {
 		return Optional.empty();
 	}
 
 	/**
-	 * @see StoreApi#deleteOrder
+	 * @see UserApi#createUser
 	 */
-	default ResponseEntity<Void> deleteOrder(Long orderId) {
+	default ResponseEntity<Void> createUser(User user) {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
 
 	/**
-	 * @see StoreApi#getInventory
+	 * @see UserApi#createUsersWithArrayInput
 	 */
-	default ResponseEntity<Map<String, Integer>> getInventory() {
+	default ResponseEntity<Void> createUsersWithArrayInput(List<User> user) {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
 
 	/**
-	 * @see StoreApi#getOrderById
+	 * @see UserApi#createUsersWithListInput
 	 */
-	default ResponseEntity<Order> getOrderById(Long orderId) {
-		extract();
+	default ResponseEntity<Void> createUsersWithListInput(List<User> user) {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}
 
-	default void extract() {
+	/**
+	 * @see UserApi#deleteUser
+	 */
+	default ResponseEntity<Void> deleteUser(String username) {
+		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+	}
+
+	/**
+	 * @see UserApi#getUserByName
+	 */
+	default ResponseEntity<User> getUserByName(String username) {
 		getRequest().ifPresent(request -> {
 			for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
 				if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-					ApiUtil.setExampleResponse(request, "application/json", "{  \"petId\" : 6,  \"quantity\" : 1,  \"id\" : 0,  \"shipDate\" : \"2000-01-23T04:56:07.000+00:00\",  \"complete\" : false,  \"status\" : \"placed\"}");
+					ApiUtil.setExampleResponse(request, "application/json", "{  \"firstName\" : \"firstName\",  \"lastName\" : \"lastName\",  \"password\" : \"password\",  \"userStatus\" : 6,  \"phone\" : \"phone\",  \"id\" : 0,  \"email\" : \"email\",  \"username\" : \"username\"}");
 					break;
 				}
 				if (mediaType.isCompatibleWith(MediaType.valueOf("application/xml"))) {
-					ApiUtil.setExampleResponse(request, "application/xml", "<Order>  <id>123456789</id>  <petId>123456789</petId>  <quantity>123</quantity>  <shipDate>2000-01-23T04:56:07.000Z</shipDate>  <status>aeiou</status>  <complete>true</complete></Order>");
+					ApiUtil.setExampleResponse(request, "application/xml", "<User>  <id>123456789</id>  <username>aeiou</username>  <firstName>aeiou</firstName>  <lastName>aeiou</lastName>  <email>aeiou</email>  <password>aeiou</password>  <phone>aeiou</phone>  <userStatus>123</userStatus></User>");
 					break;
 				}
 			}
 		});
+		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
 	}
 
 	/**
-	 * @see StoreApi#placeOrder
+	 * @see UserApi#loginUser
 	 */
-	default ResponseEntity<Order> placeOrder(Order order) {
-		extract();
+	default ResponseEntity<String> loginUser(String username,
+			String password) {
+		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+	}
+
+	/**
+	 * @see UserApi#logoutUser
+	 */
+	default ResponseEntity<Void> logoutUser() {
+		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+	}
+
+	/**
+	 * @see UserApi#updateUser
+	 */
+	default ResponseEntity<Void> updateUser(String username,
+			User user) {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 	}

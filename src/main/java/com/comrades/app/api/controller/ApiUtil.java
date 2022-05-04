@@ -16,7 +16,7 @@
  *
  */
 
-package com.comrades.app.api;
+package com.comrades.app.api.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.NativeWebRequest;

@@ -18,6 +18,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -60,6 +61,18 @@ public class SpringBeansConfig {
         config.setJdbcUrl("jdbc:postgresql://localhost:5432/comrades?schema=public");
         config.setUsername("postgres");
         config.setPassword("qwe123");
+        config.setAutoCommit(true);
+        config.setMinimumIdle(10);
+        config.setMaximumPoolSize(25);
+        config.setKeepaliveTime(60000);
+        config.setIdleTimeout(120000);
+        config.setLeakDetectionThreshold(150000);
+        config.setMaxLifetime(180000);
+        config.setConnectionTimeout(3000);
+        config.setValidationTimeout(2500);
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         HikariDataSource ds = new HikariDataSource(config);
 
         return ds;
@@ -72,18 +85,24 @@ public class SpringBeansConfig {
         vendorAdapter.setDatabase(Database.POSTGRESQL);
         vendorAdapter.setGenerateDdl(false);
 
-        LocalContainerEntityManagerFactoryBean factory
-                = new LocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.comrades.app");
-
+        factory.setPackagesToScan("com.comrades.app.domain.models");
         factory.setDataSource(dataSource());
 
-        Map<String, String> jpaProperties = new HashMap<>();
+        Map<String, Object> jpaProperties = new HashMap<>();
+        // jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
+        jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        jpaProperties.put("hibernate.show_sql", true);
         factory.setJpaPropertyMap(jpaProperties);
 
         factory.afterPropertiesSet();
         return factory.getObject();
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate(HikariDataSource hikariDataSource) {
+        return new JdbcTemplate(hikariDataSource);
     }
 
     @Bean
