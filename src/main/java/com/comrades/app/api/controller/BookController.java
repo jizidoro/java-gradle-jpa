@@ -46,7 +46,7 @@ public class BookController {
 
     @GetMapping("/filter")
     public List<Book> filterBooks(@ParameterObject Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findAll();
     }
 
     @PutMapping("/{id}")

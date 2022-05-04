@@ -51,7 +51,7 @@ public class SpringBeansConfig {
         return pspc;
     }
 
-    @Bean(destroyMethod = "close")
+    @Bean
     public DataSource dataSource() throws NamingException {
 
         HikariConfig config = new HikariConfig();
@@ -91,7 +91,7 @@ public class SpringBeansConfig {
         Map<String, Object> jpaProperties = new HashMap<>();
         // jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
         jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        jpaProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+        jpaProperties.put("hibernate.hbm2ddl.auto", "update");
         jpaProperties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
         jpaProperties.put("hibernate.show_sql", true);
         jpaProperties.put("hibernate.format_sql", true);
