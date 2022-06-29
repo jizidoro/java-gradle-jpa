@@ -7,7 +7,9 @@ import com.comrades.app.core.airplane.usecases.UcAirplaneCreate;
 import com.comrades.app.core.airplane.usecases.UcAirplaneDelete;
 import com.comrades.app.core.airplane.usecases.UcAirplaneEdit;
 import com.comrades.app.core.bases.UseCaseFacade;
+import com.comrades.app.persistence.repositories.AirplaneRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -18,6 +20,9 @@ import java.util.UUID;
 public class AirplaneCommand implements IAirplaneCommand {
 
     private final UseCaseFacade facade;
+
+    @Autowired
+    private AirplaneRepository _airplaneRepository;
 
     public Integer save(AirplaneDto airplane) {
         var result = AirplaneMapper.INSTANCE.toAirplane(airplane);

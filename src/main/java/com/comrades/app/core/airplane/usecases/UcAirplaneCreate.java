@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.Instant;
+import java.util.Date;
+
 
 @Getter
 @Setter
@@ -24,6 +27,8 @@ public class UcAirplaneCreate extends UseCase<Integer> {
     
     @Override
     protected Integer execute() throws Exception {
+        var date =Date.from(Instant.now());
+        airplane.setRegisterDate(date);
         return _airplaneRepository.save(airplane);
     }
 }
