@@ -1,9 +1,3 @@
-/*
- * Este arquivo pertence a Petrobras e nao pode ser utilizado fora desta empresa
- * sem previa autorizacao.
- * ----------------------------------
- * Esta classe segue o padrao PE-2T0-00250
- */
 package com.comrades.app.core.bases;
 
 
@@ -32,13 +26,6 @@ public class UseCaseFacade {
         this.validator = validator;
     }
 
-    /**
-     * Executa o caso de uso informado.
-     *
-     * @param <T>     Tipo retornado pelo caso de uso
-     * @param usecase Caso de uso
-     * @return retorno gerado pela execucao do caso de uso
-     */
     @Transactional
     public <T> T execute(UseCase<T> usecase) {
         manager.prepare(usecase);
@@ -65,11 +52,6 @@ public class UseCaseFacade {
         }
     }
 
-    /**
-     * Faz a validacao basica do usecase
-     * <p>
-     * @param usecase
-     */
     protected void validate(Object usecase) {
         Set<ConstraintViolation<Object>> violations = validator.validate(usecase,
                 UseCaseValidationOrder.class);

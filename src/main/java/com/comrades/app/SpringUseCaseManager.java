@@ -1,9 +1,3 @@
-/* 
- * Este arquivo pertence a Petrobras e nao pode ser utilizado fora desta empresa 
- * sem previa autorizacao.
- * ----------------------------------
- * Esta classe segue o padrao PE-2T0-00250
- */
 package com.comrades.app;
 
 
@@ -18,10 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.stereotype.Component;
 
-/**
- * Implementacao de {@link UseCaseManager} baseado no spring. Considera que todos os use cases serao
- * necessariamente prototypes.
- */
 @Component
 public class SpringUseCaseManager implements UseCaseManager, BeanFactoryAware {
 
@@ -45,7 +35,6 @@ public class SpringUseCaseManager implements UseCaseManager, BeanFactoryAware {
     }
 
     private boolean shouldLogOnPersistence(UseCase usecase) {
-        //Objetos com essa interface são logados pelo Logger mais novo.
         if (ReflectionHelper.implementsInterface(usecase, ILoggedUseCase.class)) {
             return false;
         }
