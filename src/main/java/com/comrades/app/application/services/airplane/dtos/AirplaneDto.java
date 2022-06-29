@@ -29,6 +29,4 @@ public class AirplaneDto {
 
     private Date registerDate;
 
-    private FuelTypeEnum fuelType;
-
 }

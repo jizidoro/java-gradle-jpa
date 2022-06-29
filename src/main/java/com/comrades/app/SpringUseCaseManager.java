@@ -1,10 +1,8 @@
 package com.comrades.app;
 
 
-import com.comrades.app.core.bases.*;
-import com.comrades.app.core.log.UseCaseLogContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.comrades.app.core.bases.UseCase;
+import com.comrades.app.core.bases.UseCaseManager;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -15,18 +13,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpringUseCaseManager implements UseCaseManager, BeanFactoryAware {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpringUseCaseManager.class);
-
     private AutowireCapableBeanFactory beanFactory;
 
-    private final UseCaseLogContext contextoOperacao;
-
-    private final UseCaseLogger useCaseLogger;
-
     @Autowired
-    public SpringUseCaseManager(UseCaseLogContext contextoOperacao, UseCaseLogger useCaseLogger) {
-        this.contextoOperacao = contextoOperacao;
-        this.useCaseLogger = useCaseLogger;
+    public SpringUseCaseManager() {
     }
 
     @Override
@@ -34,46 +24,19 @@ public class SpringUseCaseManager implements UseCaseManager, BeanFactoryAware {
         this.beanFactory = (AutowireCapableBeanFactory) beanFactory;
     }
 
-    private boolean shouldLogOnPersistence(UseCase usecase) {
-        if (ReflectionHelper.implementsInterface(usecase, ILoggedUseCase.class)) {
-            return false;
-        }
-        return usecase.getClass().isAnnotationPresent(LoggedUseCase.class);
-    }
-
     @Override
     public void prepare(UseCase usecase) {
-        beanFactory.autowireBean(usecase);
-        if (shouldLogOnPersistence(usecase)) {
-            LoggedUseCase details = usecase.getClass().getAnnotation(LoggedUseCase.class);
-            contextoOperacao.setOperacao(details.operacao());
-            contextoOperacao.setFuncionalidadeLogEnum(details.funcionalidade());
-        } else {
-            contextoOperacao.setOperacao(null);
-            contextoOperacao.setFuncionalidadeLogEnum(null);
-        }
+
     }
 
     @Override
     public void complete(UseCase usecase) {
-        try {
-            if (!shouldLogOnPersistence(usecase)) {
-                if (ReflectionHelper.implementsInterface(usecase, ILoggedUseCase.class)) {
-                    useCaseLogger.log((ILoggedUseCase) usecase);
-                }
-            }
-        } catch (Exception e) {
-            LOGGER.warn("Falha ao completar usecase: " + usecase.getClass().getName(), e);
-        }
+
     }
 
     @Override
     public void destroy(UseCase usecase) {
-        try {
-            beanFactory.destroyBean(usecase);
-        } catch (Exception e) {
-            LOGGER.warn("Falha ao destruir usecase: " + usecase.getClass().getName(), e);
-        }
+
     }
 }
 

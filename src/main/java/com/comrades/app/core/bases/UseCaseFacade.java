@@ -5,11 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
-import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -42,11 +39,6 @@ public class UseCaseFacade {
     private <T> T executeAndHandleExceptions(UseCase<T> prepared) {
         try {
             return prepared.execute();
-        } catch (ConstraintViolationException ex) {
-            throw new BusinessException(
-                    new HashSet<ConstraintViolation>(ex.getConstraintViolations()));
-        } catch (BusinessException ex) {
-            throw ex;
         } catch (Exception e) {
             throw new UnexpectedUseCaseException(prepared.getClass(), e);
         }
@@ -56,7 +48,7 @@ public class UseCaseFacade {
         Set<ConstraintViolation<Object>> violations = validator.validate(usecase,
                 UseCaseValidationOrder.class);
         if (!violations.isEmpty()) {
-            throw new BusinessException(new HashSet<ConstraintViolation>(violations));
+            throw new UnexpectedUseCaseException();
         }
     }
 
