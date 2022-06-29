@@ -1,6 +1,8 @@
 package com.comrades.app.api.controller;
 
 
+import com.comrades.app.application.responseObjects.ListResultDto;
+import com.comrades.app.application.responseObjects.SingleResultDto;
 import com.comrades.app.application.services.airplane.IAirplaneCommand;
 import com.comrades.app.application.services.airplane.IAirplaneQuery;
 import com.comrades.app.application.services.airplane.dtos.AirplaneDto;
@@ -11,11 +13,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("Airplanes")
+@RequestMapping("/api/v1/airplane")
 @RequiredArgsConstructor
 @SecurityScheme(
         name = "Basic Authentication",
@@ -27,61 +29,62 @@ public class AirplaneController {
     private final IAirplaneCommand _airplaneCommand;
     private final IAirplaneQuery _airplaneQuery;
 
-    @GetMapping
+    @GetMapping("/get-all")
     @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "List all Airplanes",
             tags = {"Airplane"})
-    public List<AirplaneDto> listAll() {
+    public ListResultDto<AirplaneDto> getAll(@RequestParam("pageNumber") Optional<Integer> pageNumber, @RequestParam("pageSize")Optional<Integer> pageSize) {
         try {
             return _airplaneQuery.findAll();
         } catch (Exception ex) {
-            return Collections.<AirplaneDto>emptyList();
+            return new ListResultDto<>(ex);
         }
-
     }
 
     @GetMapping(path = "{id}")
     @ResponseStatus(HttpStatus.OK)
     @Operation(tags = {"Airplane"})
-    public AirplaneDto findById(@PathVariable Long id) {
+    public SingleResultDto<AirplaneDto> findById(@PathVariable UUID id) {
         try {
             return _airplaneQuery.findById(id);
         } catch (Exception ex) {
-            return new AirplaneDto();
+            return new SingleResultDto<>(ex);
         }
     }
 
-    @PostMapping
+    @PostMapping("create")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(tags = {"Airplane"})
-    public Integer save(@RequestBody AirplaneDto airplane) {
+    public SingleResultDto<AirplaneDto> save(@RequestBody AirplaneDto airplane) {
         try {
-            return _airplaneCommand.save(airplane);
+            var result =  _airplaneCommand.save(airplane);
+            return new SingleResultDto<>(result);
         } catch (Exception ex) {
-            return 0;
+            return new SingleResultDto<>(ex);
         }
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping("update")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(tags = {"Airplane"})
-    public Integer update(@PathVariable int id, @RequestBody AirplaneDto airplane) {
+    public SingleResultDto<AirplaneDto> update(@RequestBody AirplaneDto airplane) {
         try {
-            return _airplaneCommand.update(airplane);
+            var result =  _airplaneCommand.update(airplane);
+            return new SingleResultDto<>(result);
         } catch (Exception ex) {
-            return 0;
+            return new SingleResultDto<>(ex);
         }
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping(path = "/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(tags = {"Airplane"})
-    public Integer delete(@PathVariable Long id) {
+    public SingleResultDto<AirplaneDto> delete(@PathVariable UUID id) {
         try {
-            return _airplaneCommand.delete(id);
+            var result = _airplaneCommand.delete(id);
+            return new SingleResultDto<>(result);
         } catch (Exception ex) {
-            return 0;
+            return new SingleResultDto<>(ex);
         }
     }
-
 }

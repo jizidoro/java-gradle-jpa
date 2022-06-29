@@ -5,17 +5,17 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.util.UUID;
 
 public class AirplaneRowMapper implements RowMapper<Airplane> {
     @Override
     public Airplane mapRow(ResultSet resultSet, int i) throws SQLException {
         return new Airplane(
-                resultSet.getLong("airp_sq_airplane"),
-                resultSet.getString("airp_tx_codigo"),
-                resultSet.getString("airp_tx_modelo"),
-                resultSet.getInt("airp_qt_passageiro"),
-                LocalDate.parse(resultSet.getString("airp_dt_registro"))
+                UUID.fromString(resultSet.getString("airp_uuid_airplane")),
+                resultSet.getString("airp_tx_code"),
+                resultSet.getString("airp_tx_model"),
+                resultSet.getInt("airp_qt_passenger"),
+                resultSet.getDate("airp_dt_register")
         );
     }
 }

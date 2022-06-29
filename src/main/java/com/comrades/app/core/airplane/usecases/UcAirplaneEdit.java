@@ -25,6 +25,9 @@ public class UcAirplaneEdit extends UseCase<Integer> {
     @Override
     protected Integer execute() throws Exception {
         var result = _airplaneRepository.findById(airplane.getId());
-        return _airplaneRepository.save(result.get());
+        if(result != null) {
+            return _airplaneRepository.edit(airplane);
+        }
+        return 0;
     }
 }

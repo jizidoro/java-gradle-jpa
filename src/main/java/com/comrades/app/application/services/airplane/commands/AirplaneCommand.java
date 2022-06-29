@@ -7,9 +7,10 @@ import com.comrades.app.core.airplane.usecases.UcAirplaneCreate;
 import com.comrades.app.core.airplane.usecases.UcAirplaneDelete;
 import com.comrades.app.core.airplane.usecases.UcAirplaneEdit;
 import com.comrades.app.core.bases.UseCaseFacade;
-import com.comrades.app.domain.models.Airplane;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 
 @Service
@@ -30,7 +31,7 @@ public class AirplaneCommand implements IAirplaneCommand {
         return facade.execute(uc);
     }
 
-    public Integer delete(Long id) {
+    public Integer delete(UUID id) {
         var uc = new UcAirplaneDelete(id);
         return facade.execute(uc);
     }

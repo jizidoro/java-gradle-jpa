@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class AirplaneRepository implements IAirplaneRepository {
@@ -19,9 +20,9 @@ public class AirplaneRepository implements IAirplaneRepository {
     @Override
     public List<Airplane> findAll() {
         var sql = """
-                SELECT airp_sq_airplane, airp_tx_codigo, airp_tx_modelo, airp_qt_passageiro, airp_dt_registro
+                SELECT airp_uuid_airplane, airp_tx_code, airp_tx_model, airp_qt_passenger, airp_dt_register
                 FROM airp_airplane;
-                 """;
+                """;
         return jdbcTemplate.query(sql, new AirplaneRowMapper());
     }
 
@@ -29,36 +30,63 @@ public class AirplaneRepository implements IAirplaneRepository {
     public int save(Airplane airplane) {
         try {
             var sql = """
-                    INSERT INTO airp_airplane(airp_tx_codigo, airp_tx_modelo, airp_qt_passageiro, airp_dt_registro)
+                    INSERT INTO airp_airplane(airp_tx_code, airp_tx_model, airp_qt_passenger, airp_dt_register)
                     VALUES (?, ?, ?, ?);
-                     """;
+                    """;
             return jdbcTemplate.update(
                     sql,
-                    airplane.getCodigo(), airplane.getModelo(), airplane.getQuantidadePassageiro(), airplane.getDataRegistro()
+                    airplane.getCode(), airplane.getModel(), airplane.getPassengerQuantity(), airplane.getRegisterDate()
             );
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
-            return 0;
+            throw ex;
+        }
+    }
+
+    @Override
+    public int edit(Airplane airplane) {
+        try {
+            var sql = """
+                    update airp_airplane set
+                    airp_tx_code = ?,
+                    airp_tx_model = ?,
+                    airp_qt_passenger = ?
+                    where airp_uuid_airplane = ?
+                    """;
+            return jdbcTemplate.update(
+                    sql,
+                    airplane.getCode(), airplane.getModel(), airplane.getPassengerQuantity(), airplane.getId()
+            );
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            throw ex;
+        }
+    }
+
+
+    @Override
+    public int delete(UUID id) {
+        try {
+            var sql = """
+                    DELETE FROM airp_airplane   
+                    WHERE airp_uuid_airplane = ?
+                    """;
+            return jdbcTemplate.update(sql, id);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            throw ex;
         }
 
     }
 
     @Override
-    public int delete(Long id) {
+    public Optional<Airplane> findById(UUID id) {
         var sql = """
-                DELETE FROM airp_airplane   
-                WHERE airp_sq_airplane = ?
-                """;
-        return jdbcTemplate.update(sql, id);
-    }
-
-    @Override
-    public Optional<Airplane> findById(Long id) {
-        var sql = """
-                SELECT airp_sq_airplane, airp_tx_codigo, airp_dt_registro
+                SELECT airp_uuid_airplane, airp_tx_code, airp_tx_model, airp_qt_passenger, airp_dt_register
                 FROM airp_airplane
-                WHERE airp_sq_airplane = ?
-                 """;
+                WHERE airp_uuid_airplane = ?
+                """;
+
         return jdbcTemplate.query(sql, new AirplaneRowMapper(), id)
                 .stream()
                 .findFirst();

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.UUID;
+
 
 @Getter
 @Setter
@@ -14,9 +16,9 @@ public class UcAirplaneDelete extends UseCase<Integer> {
     @Autowired
     private AirplaneRepository _airplaneRepository;
 
-    private Long id;
+    private UUID id;
 
-    public UcAirplaneDelete(Long airplaneId) {
+    public UcAirplaneDelete(UUID airplaneId) {
         super();
         id = airplaneId;
     }
