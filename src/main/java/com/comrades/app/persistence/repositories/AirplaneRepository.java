@@ -30,12 +30,12 @@ public class AirplaneRepository implements IAirplaneRepository {
     public int save(Airplane airplane) {
         try {
             var sql = """
-                    INSERT INTO airp_airplane(airp_tx_code, airp_tx_model, airp_qt_passenger, airp_dt_register)
-                    VALUES (?, ?, ?, ?);
+                    INSERT INTO airp_airplane(airp_uuid_airplane, airp_tx_code, airp_tx_model, airp_qt_passenger, airp_dt_register)
+                    VALUES (?, ?, ?, ?, ?);
                     """;
             return jdbcTemplate.update(
                     sql,
-                    airplane.getCode(), airplane.getModel(), airplane.getPassengerQuantity(), airplane.getRegisterDate()
+                    airplane.getId() ,airplane.getCode(), airplane.getModel(), airplane.getPassengerQuantity(), airplane.getRegisterDate()
             );
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
