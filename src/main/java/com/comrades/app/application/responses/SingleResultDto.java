@@ -22,7 +22,7 @@ public class SingleResultDto<T> extends ResultDto {
     {
         code = 201;
         success = true;
-        message = "";
+        message = response.toString();
     }
 
     public SingleResultDto(Exception ex)
