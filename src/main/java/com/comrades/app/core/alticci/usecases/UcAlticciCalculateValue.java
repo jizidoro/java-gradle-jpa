@@ -7,17 +7,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UcAlticciCreate extends UseCase<Integer> {
+public class UcAlticciCalculateValue extends UseCase<Integer> {
 
     private Integer alticci;
 
-    public UcAlticciCreate(Integer alticciInput) {
+    public UcAlticciCalculateValue(Integer alticciInput) {
         super();
         alticci = alticciInput;
     }
     
     @Override
-    protected Integer execute() throws Exception {
+    protected Integer execute() {
         return alticci;
     }
 }
