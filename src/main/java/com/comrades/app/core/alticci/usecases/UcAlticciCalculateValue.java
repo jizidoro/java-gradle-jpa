@@ -19,6 +19,7 @@ public class UcAlticciCalculateValue extends UseCase<Integer> {
     
     @Override
     protected Integer execute() {
+        //aqui vai ser o cache
         return teste(initialValue);
     }
 
