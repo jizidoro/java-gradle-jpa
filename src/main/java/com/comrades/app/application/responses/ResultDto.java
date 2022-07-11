@@ -1,4 +1,4 @@
-package com.comrades.app.application.responseObjects;
+package com.comrades.app.application.responses;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

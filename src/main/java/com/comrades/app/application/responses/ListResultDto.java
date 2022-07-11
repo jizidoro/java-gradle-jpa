@@ -1,16 +1,19 @@
-package com.comrades.app.application.responseObjects;
+package com.comrades.app.application.responses;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class SingleResultDto<T> extends ResultDto {
-    T data;
+public class ListResultDto<T> extends ResultDto {
 
-    public SingleResultDto(T response)
+    List<T> data;
+
+    public ListResultDto(List<T> response)
     {
         code = 200;
         success = true;
@@ -18,14 +21,7 @@ public class SingleResultDto<T> extends ResultDto {
         data = response;
     }
 
-    public SingleResultDto(Integer response)
-    {
-        code = 201;
-        success = true;
-        message = "";
-    }
-
-    public SingleResultDto(Exception ex)
+    public ListResultDto(Exception ex)
     {
         code = 200;
         success = false;

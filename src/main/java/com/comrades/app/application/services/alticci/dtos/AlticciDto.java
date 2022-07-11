@@ -1,4 +1,4 @@
-package com.comrades.app.application.services.airplane.dtos;
+package com.comrades.app.application.services.alticci.dtos;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AirplaneDto {
+public class AlticciDto {
 
     private UUID id;
 

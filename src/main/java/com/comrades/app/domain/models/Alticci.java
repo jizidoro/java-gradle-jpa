@@ -14,16 +14,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table("airp_airplane")
-public class Airplane {
+@Table("airp_alticci")
+public class Alticci {
 
     @Id
     @With
-    @Column("airp_uuid_airplane")
+    @Column("airp_uuid_alticci")
     private UUID id;
 
     @NotNull
-    @NotEmpty(message = "The name of this Airplane cannot be empty")
+    @NotEmpty(message = "The name of this Alticci cannot be empty")
     @Column("airp_tx_code")
     private String code;
 

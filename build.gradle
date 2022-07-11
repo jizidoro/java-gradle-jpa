@@ -47,7 +47,6 @@ dependencies {
 
 openApi {
 	apiDocsUrl.set("http://localhost:8090/v3/api-docs.yaml")
-	outputDir.set(file("C:/Users/Jhonatan/Desktop"))
 	outputFileName.set("openapi.yaml")
 	waitTimeInSeconds.set(60)
 }
