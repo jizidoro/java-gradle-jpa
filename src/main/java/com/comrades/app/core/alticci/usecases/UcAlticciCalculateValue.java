@@ -9,15 +9,32 @@ import lombok.Setter;
 @Setter
 public class UcAlticciCalculateValue extends UseCase<Integer> {
 
-    private Integer alticci;
+    private Integer alticciInput;
 
     public UcAlticciCalculateValue(Integer alticciInput) {
         super();
-        alticci = alticciInput;
+        alticciInput = alticciInput;
     }
     
     @Override
     protected Integer execute() {
-        return alticci;
+        if(alticciInput == 0){
+            return 0;
+        }
+        else if(alticciInput == 1){
+            return 1;
+        }
+        else if(alticciInput == 2){
+            return 1;
+        }
+        else{
+            return teste(alticciInput);
+        }
+    }
+
+    private Integer teste(Integer inputValue){
+        var value = teste(inputValue - 3);
+        var oto = teste(inputValue - 2);
+        return value + oto;
     }
 }

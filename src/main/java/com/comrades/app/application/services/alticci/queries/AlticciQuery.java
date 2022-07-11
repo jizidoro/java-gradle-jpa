@@ -3,7 +3,7 @@ package com.comrades.app.application.services.alticci.queries;
 import com.comrades.app.application.responses.SingleResultDto;
 import com.comrades.app.application.services.alticci.IAlticciQuery;
 import com.comrades.app.application.services.alticci.dtos.AlticciDto;
-import com.comrades.app.core.alticci.usecases.UcAlticciCreate;
+import com.comrades.app.core.alticci.usecases.UcAlticciCalculateValue;
 import com.comrades.app.core.bases.UseCaseFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class AlticciQuery implements IAlticciQuery {
 
     public SingleResultDto<AlticciDto> findById(Integer inputValue) {
 
-        var uc = new UcAlticciCreate(inputValue);
+        var uc = new UcAlticciCalculateValue(inputValue);
         var teste = facade.execute(uc);
         return new SingleResultDto<>(teste);
     }
