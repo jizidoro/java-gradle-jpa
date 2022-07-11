@@ -14,10 +14,10 @@ public class AlticciQuery implements IAlticciQuery {
 
     private final UseCaseFacade facade;
 
-    public SingleResultDto<AlticciDto> findById(Integer inputValue) {
+    public SingleResultDto<AlticciDto> findById(Long inputValue) {
 
         var uc = new UcAlticciCalculateValue(inputValue);
-        var teste = facade.execute(uc);
-        return new SingleResultDto<>(teste);
+        var response = facade.execute(uc);
+        return new SingleResultDto<>(response);
     }
 }

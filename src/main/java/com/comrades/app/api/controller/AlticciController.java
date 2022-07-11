@@ -28,7 +28,7 @@ public class AlticciController {
     @ResponseStatus(HttpStatus.OK)
     @Operation(tags = {"Alticci"})
     @GetMapping(value = {"/{inputValue}"})
-    public SingleResultDto<AlticciDto> findById(@PathVariable(name = "inputValue") Integer inputValue) {
+    public SingleResultDto<AlticciDto> findById(@PathVariable(name = "inputValue") Long inputValue) {
         try {
             return _alticciQuery.findById(inputValue);
         } catch (Exception ex) {

@@ -22,6 +22,13 @@ public class SingleResultDto<T> extends ResultDto {
     {
         code = 201;
         success = true;
+        message = "";
+    }
+
+    public SingleResultDto(Long response)
+    {
+        code = 201;
+        success = true;
         message = response.toString();
     }
 
