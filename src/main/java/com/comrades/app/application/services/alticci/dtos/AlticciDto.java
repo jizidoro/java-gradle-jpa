@@ -16,6 +16,4 @@ public class AlticciDto {
     @NotEmpty
     private String calculatedValue;
 
-    private Boolean isCashed;
-
 }
