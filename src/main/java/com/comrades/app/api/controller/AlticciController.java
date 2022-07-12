@@ -27,10 +27,10 @@ public class AlticciController {
 
     @ResponseStatus(HttpStatus.OK)
     @Operation(tags = {"Alticci"})
-    @GetMapping(value = {"/{inputValue}"})
-    public SingleResultDto<AlticciDto> findById(@PathVariable(name = "inputValue") Long inputValue) {
+    @GetMapping(value = {"calculate-alticci/{value}"})
+    public SingleResultDto<AlticciDto> calculateAlticci(@PathVariable(name = "value") Long value) {
         try {
-            return _alticciQuery.findById(inputValue);
+            return _alticciQuery.findById(value);
         } catch (Exception ex) {
             return new SingleResultDto<>(ex);
         }

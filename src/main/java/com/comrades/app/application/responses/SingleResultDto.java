@@ -18,20 +18,6 @@ public class SingleResultDto<T> extends ResultDto {
         data = response;
     }
 
-    public SingleResultDto(Integer response)
-    {
-        code = 201;
-        success = true;
-        message = "";
-    }
-
-    public SingleResultDto(Long response)
-    {
-        code = 201;
-        success = true;
-        message = response.toString();
-    }
-
     public SingleResultDto(Exception ex)
     {
         code = 200;
