@@ -28,13 +28,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.security:spring-security-test'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
-	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.8'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.10'
+	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.10'
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 	implementation 'com.zaxxer:HikariCP:5.0.1'
-	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.2'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 	implementation 'org.postgresql:postgresql:42.3.4'
-	implementation 'org.flywaydb:flyway-core:8.5.10'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -42,6 +41,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'junit:junit:4.13.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
@@ -52,9 +52,9 @@ openApi {
 	waitTimeInSeconds.set(60)
 }
 
-
 test {
 	useJUnitPlatform()
 }
+
 sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
