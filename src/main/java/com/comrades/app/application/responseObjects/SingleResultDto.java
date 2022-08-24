@@ -25,6 +25,13 @@ public class SingleResultDto<T> extends ResultDto {
         message = "";
     }
 
+    public SingleResultDto(int[] response)
+    {
+        code = 201;
+        success = true;
+        message = "";
+    }
+
     public SingleResultDto(Exception ex)
     {
         code = 200;

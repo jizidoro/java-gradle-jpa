@@ -10,9 +10,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.UUID;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 import com.comrades.app.api.controller.AirplaneController;
 import com.comrades.app.application.responseObjects.ListResultDto;
@@ -20,6 +20,12 @@ import com.comrades.app.application.services.airplane.IAirplaneCommand;
 import com.comrades.app.application.services.airplane.IAirplaneQuery;
 import com.comrades.app.application.services.airplane.dtos.AirplaneDto;
 
+import com.comrades.app.application.services.movie.dtos.MovieDto;
+import com.comrades.app.domain.models.Movie;
+import com.fasterxml.jackson.databind.MappingIterator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,6 +71,7 @@ public class AirplaneControllerIntegrationTest {
                 123,
                 new Date());
 
+
         ListResultDto<AirplaneDto> allAirplanes = new ListResultDto<AirplaneDto>(Arrays.asList(boeing, mig));
 
         given(_airplaneQuery.findAll()).willReturn(allAirplanes);
@@ -78,5 +85,22 @@ public class AirplaneControllerIntegrationTest {
         verify(_airplaneQuery, VerificationModeFactory.times(1)).findAll();
         reset(_airplaneQuery);
     }
+
+    @Test
+    public void csvToJson() throws Exception {
+        CsvMapper csvMapper = new CsvMapper();
+        CsvSchema csvSchema = csvMapper
+                .schemaFor(MovieDto.class)
+                .withColumnSeparator(';')
+                .withHeader();
+
+        MappingIterator<MovieDto> orderLines = csvMapper.readerFor(MovieDto.class)
+                .with(csvSchema)
+                .readValues(new File("src/main/resources/movielist.csv"));
+
+        var teste = orderLines.readAll();
+        var oto = teste.get(1);
+    }
+
 
 }
