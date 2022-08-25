@@ -8,8 +8,10 @@ import java.util.UUID;
 
 public interface IMovieRepository {
     List<Movie> findAll();
+    List<Movie> findMovieFromProducerWithMoreThanOrEqualTwoWinners();
     int save(Movie movie);
     int edit(Movie movie);
     int delete(UUID id);
+    int deleteAll();
     Optional<Movie> findById(UUID id);
 }

@@ -12,10 +12,10 @@ public class MovieRowMapper implements RowMapper<Movie> {
     public Movie mapRow(ResultSet resultSet, int i) throws SQLException {
         return new Movie(
                 UUID.fromString(resultSet.getString("movi_uuid_movie")),
-                resultSet.getString("movi_tx_year"),
+                resultSet.getInt("movi_nb_year"),
                 resultSet.getString("movi_tx_title"),
                 resultSet.getString("movi_tx_studios"),
-                resultSet.getString("movi_tx_producers"),
+                resultSet.getString("prod_tx_name"),
                 resultSet.getString("movi_tx_winner")
         );
     }

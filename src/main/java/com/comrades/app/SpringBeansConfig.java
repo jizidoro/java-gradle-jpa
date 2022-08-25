@@ -1,9 +1,3 @@
-/* 
- * Este arquivo pertence a Petrobras e nao pode ser utilizado fora desta empresa 
- * sem previa autorizacao.
- * ----------------------------------
- * Esta classe segue o padrao PE-2T0-00250
- */
 package com.comrades.app;
 
 
@@ -18,6 +12,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -55,10 +52,17 @@ public class SpringBeansConfig {
     public DataSource dataSource() throws NamingException {
 
         HikariConfig config = new HikariConfig();
-        config.setDriverClassName("org.postgresql.Driver");
-        config.setJdbcUrl("jdbc:postgresql://localhost:5432/comrades?schema=public");
-        config.setUsername("postgres");
-        config.setPassword("qwe123");
+
+//        config.setDriverClassName("org.postgresql.Driver");
+//        config.setJdbcUrl("jdbc:postgresql://localhost:5432/comrades?schema=public");
+//        config.setUsername("postgres");
+//        config.setPassword("qwe123");
+
+        config.setDriverClassName("org.h2.Driver");
+        config.setJdbcUrl("jdbc:h2:mem:test");
+        config.setUsername("sa");
+        config.setPassword("");
+
         config.setAutoCommit(true);
         config.setMinimumIdle(10);
         config.setMaximumPoolSize(25);
@@ -73,33 +77,13 @@ public class SpringBeansConfig {
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         HikariDataSource ds = new HikariDataSource(config);
 
+        Resource initSchema = new ClassPathResource("jdbc/schema.sql");
+        DatabasePopulator databasePopulator = new ResourceDatabasePopulator(initSchema);
+        DatabasePopulatorUtils.execute(databasePopulator, ds);
+
         return ds;
     }
 
-    @Bean
-    public EntityManagerFactory entityManagerFactory() throws NamingException {
-
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabase(Database.POSTGRESQL);
-        vendorAdapter.setGenerateDdl(false);
-
-        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
-        factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.comrades.app.domain.models");
-        factory.setDataSource(dataSource());
-
-        Map<String, Object> jpaProperties = new HashMap<>();
-        // jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
-        jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-        jpaProperties.put("hibernate.hbm2ddl.auto", "update");
-        jpaProperties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
-        jpaProperties.put("hibernate.show_sql", true);
-        jpaProperties.put("hibernate.format_sql", true);
-        factory.setJpaPropertyMap(jpaProperties);
-
-        factory.afterPropertiesSet();
-        return factory.getObject();
-    }
 
     @Bean
     public JdbcTemplate jdbcTemplate(HikariDataSource hikariDataSource) {
@@ -109,8 +93,9 @@ public class SpringBeansConfig {
     @Bean
     public PlatformTransactionManager transactionManager() throws NamingException {
         JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactory());
         txManager.setDataSource(dataSource());
+
+
         return txManager;
     }
 

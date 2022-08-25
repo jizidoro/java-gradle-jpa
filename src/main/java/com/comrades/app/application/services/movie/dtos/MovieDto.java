@@ -24,6 +24,8 @@ import java.util.UUID;
 })
 public class MovieDto {
 
+    private UUID id;
+
     @JsonProperty("year")
     private String year;
 
